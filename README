@@ -1,0 +1,44 @@
+getParams
+
+A jQuery plugin that provides the inverse function for
+jQuery.serialize().
+
+In the default case, calling $.getParams() will return an
+object representing the search part of the URL obtained
+from calling window.location.search.
+
+Typical Usage:
+
+For example, if you're page's URL is
+http://thisshouldbeeasy.com?foo=bar&big=little, you can
+access the query string parameters like this:
+
+    $.getParams().foo; // returns "bar"
+    $.getParams().big; // returns "little"
+
+If you have parameters from some other location, you can
+pass those in as a string.
+
+    $.getParams('foo=bar').foo // returns bar
+
+It also decodes URL encoded strings, so your keys and
+values don't look like gibberish. For example, if your
+query string is "these%20strings=have%spaces", then
+you could write code like this:
+
+    $.getParams()["these strings"] // returns "have spaces"
+
+Performance:
+
+The results of parsing a query string are cached, so
+parsing is only performed on the first call to $.getParams()
+for a particular string. All additional calls for that
+string will return the cached result. If you never call the
+$.getParams() function, no parsing ever gets performed.
+
+
+TODO:
+
+Recursively parse the parameters so a key-value pair like
+my[obj]=cool would result in {my: { obj: "cool" }}
+
