@@ -1,28 +1,28 @@
 (function($) {
 
     $.extend({
-        queryParams: queryParams
+        getParams: getParams
     });
 
     var cache = {};
 
-    function query_params(query_string) {
-        if ($.type(query_string) != 'string') {
-            query_string = window.location.search;
+    function getParams(queryString) {
+        if ($.type(queryString) != 'string') {
+            queryString = window.location.search;
         }
-        if (query_string[0] == '?') {
-            query_string = query_string.substr(1);
+        if (queryString[0] == '?') {
+            queryString = queryString.substr(1);
         }
-        if (!cache[query_string]) {
-            cache[query_string] = split_params(query_string);
+        if (!cache[queryString]) {
+            cache[queryString] = splitParams(queryString);
         }
-        return cache[query_string];
+        return cache[queryString];
     }
 
-    function split_params(query_string) {
+    function splitParams(queryString) {
         var i, kv, kfloat, vfloat,
-            query_obj = {},
-            pairs = query_string.split('&');
+            queryObj = {},
+            pairs = queryString.split('&');
         if (pairs[0].length > 0) {
             for (i = 0; i < pairs.length; ++i) {
                 kv = pairs[i].split('=');
@@ -31,13 +31,13 @@
                     vfloat = parseFloat(kv[1]);
                     kv[0] = kfloat ? kfloat : decodeURIComponent(kv[0]);
                     kv[1] = vfloat ? vfloat : decodeURIComponent(kv[1]);
-                    query_obj[kv[0]] = kv[1];
+                    queryObj[kv[0]] = kv[1];
                 } else {
-                    query_obj[kv[0]] = null;
+                    queryObj[kv[0]] = null;
                 }
             }
         }
-        return query_obj;
+        return queryObj;
     }
 
 })(jQuery);
